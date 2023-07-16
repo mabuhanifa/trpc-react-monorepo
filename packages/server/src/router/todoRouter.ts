@@ -3,8 +3,8 @@ import { prisma } from "../lib/prismaClient";
 import { trpc } from "../lib/trpc";
 
 export const todoRouter = trpc.router({
-  list: trpc.procedure.query(async () => {
-    return await prisma.todo.findMany();
+  list: trpc.procedure.query(() => {
+    return prisma.todo.findMany();
   }),
   create: trpc.procedure
     .input(

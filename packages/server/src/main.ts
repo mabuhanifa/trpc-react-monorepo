@@ -5,14 +5,14 @@ import { appRouter } from "./router";
 
 const app: Application = express();
 
-app.get("/", (req: Request, res: Response, next: NextFunction) => {
-  res.json({ message: "Hello world!" });
+app.get("/", async (req: Request, res: Response, next: NextFunction) => {
+  res.json({ hello: "world" });
 });
 
 app.use(cors());
 
 app.use(
-  "trpc",
+  "/trpc",
   trpcExpress.createExpressMiddleware({
     router: appRouter,
   })

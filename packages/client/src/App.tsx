@@ -18,11 +18,9 @@ function App() {
     });
   });
 
-  const invalidate = () => {};
-
   return (
-    <QueryClientProvider client={queryClient}>
-      <trpc.Provider client={trpcClient} queryClient={queryClient}>
+    <trpc.Provider client={trpcClient} queryClient={queryClient}>
+      <QueryClientProvider client={queryClient}>
         <div className="max-w-xl mx-auto">
           <div className="text-center text-3xl font-bold text-gray-700">
             <h1>Vite + React | Express | tRPC</h1>
@@ -34,8 +32,8 @@ function App() {
             {/* <GetTodoById /> */}
           </div>
         </div>
-      </trpc.Provider>
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </trpc.Provider>
   );
 }
 
