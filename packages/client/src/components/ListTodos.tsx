@@ -7,7 +7,8 @@ export default function ListTodos() {
 
   const response = trpc.todo.list.useQuery();
 
-  console.log(response.data);
+  const deleteMutation = trpc.todo.delete.useMutation();
+
   if (response.isError) {
     return <div>Error...</div>;
   }
@@ -31,7 +32,16 @@ export default function ListTodos() {
           </button>
 
           <button
-            onClick={() => handleDelete()}
+            onClick={() =>
+              deleteMutation.mutate(
+                { id: todo.id },
+                {
+                  onSuccess: () => {
+                    response.refetch();
+                  },
+                }
+              )
+            }
             className="text-red-500 hover:text-white hover:bg-red-500 p-1 rounded"
           >
             <svg
