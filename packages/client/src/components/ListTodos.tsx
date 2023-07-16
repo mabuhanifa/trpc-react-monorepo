@@ -1,13 +1,11 @@
 import { trpc } from "../lib/trpc";
 
 export default function ListTodos() {
-  function handleDelete() {}
-
-  function updateTodo() {}
-
   const response = trpc.todo.list.useQuery();
 
   const deleteMutation = trpc.todo.delete.useMutation();
+
+  const updateMutation = trpc.todo.update.useMutation();
 
   if (response.isError) {
     return <div>Error...</div>;
@@ -25,10 +23,22 @@ export default function ListTodos() {
           <p className="flex-grow">{todo.title}</p>
 
           <button
-            className="text-white bg-green-600 px-2 py-1 rounded text-sm hover:line-through cursor-pointer hover:text-black"
-            onClick={() => updateTodo()}
+            className={`text-white  px-2 py-1 rounded 
+            text-sm hover:line-through cursor-pointer hover:text-black ${
+              todo.isCompleted ? "bg-green-600" : "bg-red-500"
+            }`}
+            onClick={() =>
+              updateMutation.mutate(
+                { id: todo.id, isCompleted: !todo.isCompleted },
+                {
+                  onSuccess: () => {
+                    response.refetch();
+                  },
+                }
+              )
+            }
           >
-            {true ? "Complete" : "Incomplete"}
+            {todo.isCompleted ? "Complete" : "Incomplete"}
           </button>
 
           <button
