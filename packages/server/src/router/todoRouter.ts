@@ -21,4 +21,17 @@ export const todoRouter = trpc.router({
         },
       });
     }),
+  delete: trpc.procedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .mutation(({ input }) => {
+      return prisma.todo.delete({
+        where: {
+          id: input.id,
+        },
+      });
+    }),
 });

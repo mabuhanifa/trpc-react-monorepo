@@ -18,10 +18,10 @@ export default function ListTodos() {
     <ul className="">
       {response.data.map((todo) => (
         <li
-          className="flex justify-between items-center bg-gray-100 py-2 px-3 rounded-md space-x-2"
+          className="flex justify-between items-center bg-gray-100 py-2 px-3 rounded-md space-x-2 my-1"
           key={todo.id}
         >
-          <p>{todo.title}</p>
+          <p className="flex-grow">{todo.title}</p>
 
           <button
             className="text-white bg-green-600 px-2 py-1 rounded text-sm hover:line-through cursor-pointer hover:text-black"
